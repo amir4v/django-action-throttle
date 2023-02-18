@@ -40,7 +40,7 @@ setup(
     url='https://www.django-rest-framework.org/',
     license='BSD',
     description='Web APIs for Django, made easy.',
-    long_description=read('README.md'),
+    long_description=('README.md'),
     long_description_content_type='text/markdown',
     author='Tom Christie',
     author_email='tom@tomchristie.com',  # SEE NOTE BELOW (*)
