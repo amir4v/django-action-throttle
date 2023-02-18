@@ -17,4 +17,4 @@ dynamic = ["version", "readme"]
 
 [tool.setuptools.dynamic]
 readme = {file = ["README.md"], content-type = "text/markdown"}
-version = {attr = "mypkg.__version__"}
+version = {attr = "action_throttle.__version__"}
