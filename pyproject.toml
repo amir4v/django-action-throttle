@@ -1,8 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "action_throttle"
-version = "0.1.0"
-description = "Django Action Throttle"
-authors = ["Amir <amir4vx@gmail.com>"]
-readme = "README.md"
-packages = [{include = "action_throttle"}]
-python = "^3.5"
+description = "My really awesome package."
+keywords = ["random", "cool"]
+classifiers = ["Development Status :: 5 - Production/Stable",
+ "Environment :: Console",
+ "Intended Audience :: Science/Research",
+ "Operating System :: OS Independent",
+ "Programming Language :: Python :: 3",
+]
+requires-python = ">=3.7"
+dynamic = ["version", "readme"]
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"], content-type = "text/markdown"}
+version = {attr = "mypkg.__version__"}
