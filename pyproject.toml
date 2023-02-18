@@ -1,0 +1,8 @@
+[project]
+name = "action_throttle"
+version = "0.1.0"
+description = "Django Action Throttle"
+authors = ["Amir <amir4vx@gmail.com>"]
+readme = "README.md"
+packages = [{include = "action_throttle"}]
+python = "^3.5"
