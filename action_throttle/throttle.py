@@ -27,7 +27,7 @@ def action_throttle(user: User, limit_name, raise_exception=True):
                 memory.hit = 1
                 memory.From = now
                 memory.save()
-                return True
+                continue
         
         hit, duration = condition.hit_duration
         """
@@ -36,13 +36,13 @@ def action_throttle(user: User, limit_name, raise_exception=True):
         """
         until = memory.From + duration
         
-        if (now < until) and (memory.hit >= hit):
+        if (now < until) and (memory.hit > hit):
             """If the User crossed the limit condition in a shorter time than we determined."""
             if raise_exception:
                 raise BadRequest("You've reached the limit.") # TODO: Proper message?
             else:
                 return False
-        elif now >= until:
+        elif now >= until: # TODO: >= or >
             """If the user passes the time limit, it will be refreshed(like the first request)."""
             memory.hit = 1
             memory.From = now
