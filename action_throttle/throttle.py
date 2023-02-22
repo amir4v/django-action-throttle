@@ -2,13 +2,14 @@ from time import time
 
 from django.core.exceptions import BadRequest
 
-from .models import User, Memory, Limit, Condition
+from .models import Memory, Limit, Condition
 
 
-def action_throttle(user: User, limit_name, raise_exception=True):
+def action_throttle(request, limit_name, raise_exception=False):
     """Limit Throttle function for an action"""
     
     now = int(time())
+    user = request.user
     
     limit = Limit.objects.get(name=limit_name)
     """
