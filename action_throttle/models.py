@@ -10,8 +10,8 @@ User = get_user_model()
 class Memory(models.Model):
     """It remembers who made how many requests from when."""
     
-    # ip = models.CharField(max_length=100, unique=True, db_index=True, blank=False, null=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ip = models.CharField(max_length=50, db_index=True, blank=True, null=True, default=None)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True, blank=True, null=True, default=None)
     # group
     
     """Number of requests"""
@@ -24,6 +24,11 @@ class Memory(models.Model):
     
     def __str__(self):
         return f'{self.user} - ({self.condition}) - {self.hit}'
+
+    def save(self, *args, **kwargs):
+        if self.ip is None and self.user is None:
+            raise ValidationError('ip and user cannot be None at the same time!')
+        return super().save(*args, **kwargs)
 
 
 class Limit(models.Model):
