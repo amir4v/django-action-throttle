@@ -20,29 +20,48 @@ Unsupported Python version
     sys.exit(1)
 
 
-version = '0.0.1'
+def read(f):
+    return open(f, 'r', encoding='utf-8').read()
+
+
+def get_version(package):
+    """
+    Return package version as listed in `__version__` in `init.py`.
+    """
+    init_py = open(os.path.join(package, '__init__.py')).read()
+    return re.search("__version__ = ['\"]([^'\"]+)['\"]", init_py).group(1)
+
+
+version = get_version('action_throttle')
 
 
 setup(
-    name='action_throttle',
+    name='djangoactionthrottle',
     version=version,
-    url='',
+    url='https://github.com/amir4v/django-action-throttle/',
     license='MIT',
     description='Django Action Throttle',
-    long_description=('README.md'),
+    long_description=read('README.md'),
     long_description_content_type='text/markdown',
     author='Amirhosein Ghorbani',
     author_email='amir4vx@gmail.com',
     packages=[],
     include_package_data=True,
-    install_requires=[],
+    install_requires=["django>=3.0", "pytz"],
     python_requires=">=3.5",
     zip_safe=False,
     classifiers=[
-        'Development Status :: 1 - Production/Stable',
+        'Development Status :: 0 - Development/UnStable',
         'Environment :: Web Environment',
+        'Framework :: Django',
+        'Framework :: Django :: 3.0',
+        'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
+        'Framework :: Django :: 4.0',
+        'Framework :: Django :: 4.1',
+        'Framework :: Django :: 4.2',
         'Intended Audience :: Developers',
-        'License :: MIT License',
+        'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
@@ -56,5 +75,7 @@ setup(
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Internet :: WWW/HTTP',
     ],
-    project_urls={},
+    project_urls={
+        'Source': 'https://github.com/amir4v/django-action-throttle/',
+    },
 )
