@@ -32,7 +32,7 @@ def get_version(package):
     return re.search("__version__ = ['\"]([^'\"]+)['\"]", init_py).group(1)
 
 
-version = get_version('.')
+version = get_version('action_throttle') # TODO
 
 
 setup(
@@ -51,7 +51,7 @@ setup(
     python_requires=">=3.5",
     zip_safe=False,
     classifiers=[
-        'Development Status :: 0 - Development/UnStable',
+        'Development Status :: 2 - Pre-Alpha',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Framework :: Django :: 3.0',

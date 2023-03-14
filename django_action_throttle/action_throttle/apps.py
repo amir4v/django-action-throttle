@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class ThrottleConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'django-action-throttle'
+    name = 'action_throttle'

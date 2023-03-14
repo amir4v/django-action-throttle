@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 
 from .throttle_settings import LIMIT_DURATION
 
-
 User = get_user_model()
 
 
