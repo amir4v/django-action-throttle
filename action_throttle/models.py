@@ -12,7 +12,6 @@ class Memory(models.Model):
     
     ip = models.CharField(max_length=50, db_index=True, blank=True, null=True, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True, blank=True, null=True, default=None)
-    # group
     
     """Number of requests"""
     hit = models.IntegerField(default=0)
@@ -27,7 +26,7 @@ class Memory(models.Model):
 
     def save(self, *args, **kwargs):
         if self.ip is None and self.user is None:
-            raise ValidationError('ip and user cannot be None at the same time!')
+            raise Exception('IP and User cannot be None at the same time!')
         return super().save(*args, **kwargs)
 
 
@@ -64,7 +63,7 @@ class Condition(models.Model):
         y: Year
     """
     
-    condition = models.CharField(max_length=100, blank=False, null=False) # TODO: Should be unique?
+    condition = models.CharField(max_length=100, blank=False, null=False)
     limit = models.ForeignKey(Limit, on_delete=models.CASCADE)
     
     @property
