@@ -17,3 +17,8 @@ LIMIT_DURATION = {
     'month': MONTH,
     'y'    : YEAR,
 }
+
+DEFAULT_THROTTLE_RATE = {
+    'ip': '500/1:d',
+    'user': '1000/1:d',
+}

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: djangoactionthrottle
-Version: 0.0.1
+Version: 0.0.2
 Summary: Django Action Throttle
 Home-page: https://github.com/amir4v/django-action-throttle/
 Author: Amirhosein Ghorbani
