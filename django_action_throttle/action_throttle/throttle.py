@@ -2,11 +2,13 @@ from time import time
 
 from django.core.exceptions import BadRequest
 
-from .models import Memory, Limit, Condition
+from .models import Memory, Limit
 from .utils import get_client_ip
 
 
-def action_throttle(request, user_ip_limit=None, user_limit=None, ip_limit=None, raise_exception=False):
+def action_throttle(request,
+                    user_ip_limit=None, user_limit=None, ip_limit=None,
+                    raise_exception=False):
     """Limit Throttle function for an action"""
     
     now = int(time())
@@ -64,13 +66,13 @@ def action_throttle(request, user_ip_limit=None, user_limit=None, ip_limit=None,
         """
         until = memory.From + duration
         
-        if (now < until) and (memory.hit > hit):
+        if (now < until) and (memory.hit >= hit):
             """If the User crossed the limit condition in a shorter time than we determined."""
             if raise_exception:
                 raise BadRequest("You've reached the limit.")
             else:
                 return False
-        elif now >= until: # >= or >
+        elif now >= until:
             """If the user passes the time limit, it will be refreshed(like the first request)."""
             memory.hit = 1
             memory.From = now
