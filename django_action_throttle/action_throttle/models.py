@@ -21,7 +21,7 @@ class Memory(models.Model):
     condition = models.ForeignKey('Condition', on_delete=models.CASCADE)
     
     def __str__(self):
-        return f'{self.user} - ({self.condition}) - {self.hit}'
+        return f'{self.ip or self.user} - ({self.condition}) - {self.hit}'
 
     def save(self, *args, **kwargs):
         if self.ip is None and self.user is None:
