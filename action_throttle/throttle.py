@@ -2,7 +2,7 @@ from time import time
 
 from django.core.exceptions import BadRequest
 
-from .models import Memory, Limit
+from .models import Memory, Limit, Condition
 from .utils import get_client_ip
 
 
@@ -10,6 +10,7 @@ def action_throttle(request,
                     user_ip_limit=None, user_limit=None, ip_limit=None,
                     raise_exception=False):
     """Limit Throttle function for an action"""
+    # TODO: limit for user or ip, combined together.
     
     now = int(time())
     
@@ -36,9 +37,13 @@ def action_throttle(request,
     else:
         raise Exception('At least one of these must be initiate: user_ip_limit or user_limit or ip_limit')
     
-    limit = Limit.objects.get(name=the_limit)
-    
-    conditions = limit.get_conditions()
+    # v-1
+    # limit = Limit.objects.get(name=the_limit)
+    # conditions = limit.get_conditions()
+    #
+    # v-2
+    conditions = Condition.objects.filter(limit__name=the_limit).order_by('-pot')
+    #
     """
     Getting conditions sorted descending.
     Because when you break a bigger Condition, That means you broke the whole limitation
