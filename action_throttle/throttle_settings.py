@@ -22,3 +22,5 @@ DEFAULT_THROTTLE_RATE = {
     'ip': '500/1:d',
     'user': '1000/1:d',
 }
+
+DEFAULT_THROTTLE_CACHE_TIMEOUT = 60 * 60 * 24 # 1-Day

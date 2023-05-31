@@ -1,12 +1,16 @@
 from django.conf import settings
 
-from .throttle_settings import DEFAULT_THROTTLE_RATE as _DEFAULT_THROTTLE_RATE
-from .throttle import action_throttle
+from .throttle_settings import DEFAULT_THROTTLE_RATE as _DEFAULT_THROTTLE_RATE, \
+                               DEFAULT_THROTTLE_CACHE_TIMEOUT as _DEFAULT_THROTTLE_CACHE_TIMEOUT
+from .throttle import action_throttle, action_throttle_with_cache
 from .models import Limit, Condition
 
 DEFAULT_THROTTLE_RATE = getattr(settings, 'DEFAULT_THROTTLE_RATE', None) \
                         or \
                         _DEFAULT_THROTTLE_RATE
+DEFAULT_THROTTLE_CACHE_TIMEOUT = getattr(settings, 'DEFAULT_THROTTLE_CACHE_TIMEOUT', None) \
+                        or \
+                        _DEFAULT_THROTTLE_CACHE_TIMEOUT
 
 
 class ThrottleMiddleware:
@@ -25,6 +29,7 @@ class ThrottleMiddleware:
     
     def __call__(self, request):
         action_throttle(request, user_limit=self.user_limit, ip_limit=self.ip_limit, raise_exception=True)
+        action_throttle_with_cache(request, user_limit=self.user_limit, ip_limit=self.ip_limit, raise_exception=True)
         #
         response = self.get_response(request)
         return response
