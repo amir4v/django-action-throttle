@@ -44,11 +44,9 @@ from action_throttle.throttle import action_throttle, action_throttle_using_cach
 6- And then you can use it like:
 ```
 ...
-action_throttle_using_cache(
-    request=request,
-    user_ip_limit='limit-name',
-    raise_exception=True
-)
+action_throttle_using_cache(request, 'limit-name', raise_exception=True)
+# or
+action_throttle(request, 'limit-name', raise_exception=True)
 ...
 ```
 
