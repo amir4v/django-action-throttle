@@ -38,8 +38,6 @@ Durations: s/min/h/d/w/month/y
 
 5- Then wherever in your project you want to restrict, use the action_throttle or action_throttle_using_cache function:
 ```
-from action_throttle import action_throttle, action_throttle_using_cache
-# or
 from action_throttle.throttle import action_throttle, action_throttle_using_cache
 ```
 
