@@ -2,10 +2,14 @@
 Django Action Throttle
 """
 
+from .throttle import action_throttle, action_throttle_using_cache
+from .middleware import ThrottleMiddleware
+from .rest import ActionThrottle
+
 __title__ = 'Django Action Throttle'
-__version__ = '0.0.2'
+__version__ = open('version', 'r').read()
 __author__ = 'Amirhosein Ghorbani'
-__license__ = 'MIT'
+__license__ = open('LICENSE', 'r').read()
 __copyright__ = 'Copyright 2022-'
 
 # Version synonym

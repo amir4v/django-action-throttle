@@ -4,7 +4,7 @@ setup()
 
 """
 Delete all files in the 'dist' folder.
-Update the 'version' number in the setup.py file.
+Update the 'version' number in the 'version' file.
 
 python setup.py sdist
 python setup.py bdist_wheel

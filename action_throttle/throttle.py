@@ -4,14 +4,12 @@ from django.conf import settings
 from django.core.exceptions import BadRequest
 from django.core.cache import cache
 
-from .throttle_settings import DEFAULT_THROTTLE_CACHE_TIMEOUT as _DEFAULT_THROTTLE_CACHE_TIMEOUT
+from .throttle_settings import ACTION_THROTTLE as _ACTION_THROTTLE
 from .models import Memory, Limit, Condition
 from .utils import get_client_ip
 
-DEFAULT_THROTTLE_CACHE_TIMEOUT = getattr(settings, 'DEFAULT_THROTTLE_CACHE_TIMEOUT', None) \
-                        or \
-                        _DEFAULT_THROTTLE_CACHE_TIMEOUT
-timeout = DEFAULT_THROTTLE_CACHE_TIMEOUT
+ACTION_THROTTLE = getattr(settings, 'ACTION_THROTTLE', _ACTION_THROTTLE)
+timeout = CACHE_TIMEOUT = ACTION_THROTTLE.get('CACHE_TIMEOUT', _ACTION_THROTTLE['CACHE_TIMEOUT'])
 
 
 def action_throttle(request,
@@ -100,7 +98,7 @@ def action_throttle(request,
     return True
 
 
-def action_throttle_with_cache(request,
+def action_throttle_using_cache(request,
                     user_ip_limit=None, user_limit=None, ip_limit=None,
                     raise_exception=False):
     """Limit Throttle function for an action"""

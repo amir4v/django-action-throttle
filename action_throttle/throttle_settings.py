@@ -18,9 +18,12 @@ LIMIT_DURATION = {
     'y'    : YEAR,
 }
 
-DEFAULT_THROTTLE_RATE = {
-    'ip': '500/1:d',
-    'user': '1000/1:d',
+ACTION_THROTTLE = {
+    'DEFAULT_RATE': {
+        'ip': '500/1:d',
+        'user': '1000/1:d',
+    },
+    'CACHE_TIMEOUT': 60 * 60 * 24, # 1-Day
+    'MIDDLEWARE_USING_CACHE': True,
+    'REST_USING_CACHE': True,
 }
-
-DEFAULT_THROTTLE_CACHE_TIMEOUT = 60 * 60 * 24 # 1-Day
