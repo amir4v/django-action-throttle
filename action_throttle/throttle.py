@@ -24,7 +24,7 @@ def action_throttle(request,
     if str(user) == 'AnonymousUser':
         # TODO: instead of get_client_ip can use WT_SESSION and/or WT_PROFILE_ID, because apparently these are unique for each device.
         # request.META['WT_SESSION']
-        # request.META['WT_PROFILE_ID']
+        # request.META['WT_PROFILE_ID'] # It's Unique for each device.
         
         USER_IP = 'ip'
         ip = get_client_ip(request)
