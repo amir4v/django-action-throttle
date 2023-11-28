@@ -10,19 +10,20 @@ class Memory(models.Model):
     """It remembers who made how many requests from when."""
     
     ip = models.CharField(max_length=50, db_index=True, blank=True, null=True, default=None)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True, blank=True, null=True, default=None)
+    wp#TODO = models.CharField(max_length=100, db_index=True, blank=True, null=True, default=None)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, db_index=True, blank=True, null=True, default=None)
     
-    """Number of requests"""
+    # Number of requests
     hit = models.IntegerField(default=0)
     
-    """When the first request was made (in epoch format)"""
+    # When the first request was made (in epoch format)
     From = models.IntegerField(default=0)
     
-    condition = models.ForeignKey('Condition', on_delete=models.CASCADE)
+    condition = models.ForeignKey('Condition', on_delete=models.SET_NULL)
     
     def __str__(self):
-        return f'{self.ip or self.user} - ({self.condition}) - {self.hit}'
-
+        return f'{self.user or self.ip} - ({self.condition}) - {self.hit}'
+    
     def save(self, *args, **kwargs):
         if self.ip is None and self.user is None:
             raise Exception('IP and User cannot be None at the same time!')
@@ -34,21 +35,7 @@ class Limit(models.Model):
     
     name = models.CharField(max_length=100, unique=True, db_index=True, blank=False, null=False)
     
-    def get_conditions(self): # TODO: Refactoring
-        # v-1
-        # conditions = self.condition_set.all()
-        # conditions = [(condition, condition.hit_duration[1]) for condition in conditions]
-        # conditions = sorted(conditions, key=lambda c: c[1], reverse=True)
-        # conditions = [condition[0] for condition in conditions]
-        
-        # v-2
-        # conditions = sorted(
-        #     self.condition_set.all(),
-        #     key=lambda c: c.hit_duration[1],
-        #     reverse=True
-        # )
-        
-        # v-3
+    def get_conditions(self):
         conditions = self.condition_set.order_by('-pot')
         
         return conditions
@@ -59,18 +46,19 @@ class Limit(models.Model):
 
 class Condition(models.Model):
     """
-    A Condition with format like: hit/per:duration
+    A Condition with a format like:
+        hit/per:duration
     
     Example: 123/1:h
-        It means: You can have 123 requests per one hour
+        It means: You can have 123-requests per 1-hour
     
-    Durations: s/min/h/d/w/month/y
+    Duration: s/min/h/d/w/mon/y
         s: Second
         min: Minute
         h: Hour
         d: Day
         w: Week
-        month: Month
+        mon: Month
         y: Year
     """
     
@@ -79,8 +67,8 @@ class Condition(models.Model):
     duration = models.CharField(default='0', max_length=8, blank=False, null=False)
     pot = models.IntegerField(default=0, blank=False, null=False) # Period-of-Time -> n * duration
     
-    condition = models.CharField(max_length=100, blank=False, null=False)
-    limit = models.ForeignKey(Limit, on_delete=models.CASCADE)
+    condition = models.CharField(max_length=20, blank=False, null=False)
+    limit = models.ForeignKey(Limit, on_delete=models.SET_NULL)
     
     @property
     def hit_duration(self):
