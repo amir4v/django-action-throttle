@@ -14,7 +14,7 @@ LIMIT_DURATION = {
     'h'    : HOUR,
     'd'    : DAY,
     'w'    : WEEK,
-    'month': MONTH,
+    'mon'  : MONTH,
     'y'    : YEAR,
 }
 
