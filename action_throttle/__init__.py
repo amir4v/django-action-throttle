@@ -15,4 +15,4 @@ __copyright__ = 'Copyright 2022-'
 # Version synonym
 # VERSION = __version__
 
-__all__ = ['admin', 'apps', 'middleware', 'models', 'rest', 'tests', 'throttle', 'throttle_settings', 'urls', 'utils', 'views',]
+__all__ = ['admin', 'apps', 'middleware', 'models', 'rest', 'tests', 'throttle_settings', 'throttle', 'urls', 'utils', 'views',]

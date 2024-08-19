@@ -10,7 +10,7 @@ class Memory(models.Model):
     """It remembers who made how many requests from when."""
     
     ip = models.CharField(max_length=50, db_index=True, blank=True, null=True, default=None)
-    wp#TODO = models.CharField(max_length=100, db_index=True, blank=True, null=True, default=None)
+    # request.META['WT_ # TODO
     user = models.ForeignKey(User, on_delete=models.SET_NULL, db_index=True, blank=True, null=True, default=None)
     
     # Number of requests

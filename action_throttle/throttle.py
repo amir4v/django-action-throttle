@@ -21,11 +21,10 @@ def action_throttle(request,
     now = int(time())
     
     user = request.user
+    # TODO: instead of get_client_ip can use WT_SESSION and/or WT_PROFILE_ID, because apparently these are unique for each device.
+    # request.META['WT_SESSION']
+    # request.META['WT_PROFILE_ID'] # It's Unique for each device.
     if str(user) == 'AnonymousUser':
-        # TODO: instead of get_client_ip can use WT_SESSION and/or WT_PROFILE_ID, because apparently these are unique for each device.
-        # request.META['WT_SESSION']
-        # request.META['WT_PROFILE_ID'] # It's Unique for each device.
-        
         USER_IP = 'ip'
         ip = get_client_ip(request)
     else:
@@ -50,10 +49,10 @@ def action_throttle(request,
     # v-1
     # limit = Limit.objects.get(name=the_limit)
     # conditions = limit.get_conditions()
-    #
+    
     # v-2
     conditions = Condition.objects.filter(limit__name=the_limit).order_by('-pot')
-    #
+    
     """
     Getting conditions sorted descending.
     Because when you break a bigger Condition, That means you broke the whole limitation
@@ -132,10 +131,10 @@ def action_throttle_using_cache(request,
     # v-1
     # limit = Limit.objects.get(name=the_limit)
     # conditions = limit.get_conditions()
-    #
+    
     # v-2
     conditions = Condition.objects.select_related('limit').filter(limit__name=the_limit).order_by('-pot')
-    #
+    
     """
     Getting conditions sorted descending.
     Because when you break a bigger Condition, That means you broke the whole limitation
